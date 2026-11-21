@@ -1,0 +1,39 @@
+-- GemachHub - נתוני דוגמה (אפשר להריץ שוב, הסקריפט מנקה קודם)
+truncate donations, units, items, points, categories restart identity cascade;
+
+insert into categories (name, sort_order) values
+    ('ריהוט לאירועים', 1),
+    ('מטבח והגשה', 2),
+    ('תינוקות', 3),
+    ('הגברה', 4),
+    ('רפואי', 5);
+
+insert into points (name, neighborhood, address, opening_hours) values
+    ('גמ"ח קריית יובל', 'קריית יובל', 'רחוב ברזיל 14, ירושלים', 'א-ה 17:00-20:00'),
+    ('גמ"ח גילה',       'גילה',       'רחוב הגננת 5, ירושלים', 'א,ג,ה 18:00-21:00'),
+    ('גמ"ח רמות',       'רמות',       'שדרות גולדה מאיר 120, ירושלים', 'א-ה 16:00-19:00'),
+    ('גמ"ח בית הכרם',   'בית הכרם',   'רחוב החלוץ 30, ירושלים', 'ב,ד 19:00-21:30');
+
+insert into items (name, category_id, description, deposit_amount, max_loan_days) values
+    ('שולחן מתקפל 1.8 מ''',  1, 'שולחן מתקפל לשמונה איש', 100, 7),
+    ('כיסא פלסטיק לבן',      1, 'כיסא מתקפל, נמכר בחבילות של 10', 10, 7),
+    ('מיחם 100 כוסות',        2, 'מיחם חשמלי לשבת ולאירועים', 150, 7),
+    ('פלטה חשמלית גדולה',     2, 'פלטה לשבת, 60x40 ס"מ', 120, 7),
+    ('עגלת תינוק',            3, 'עגלה עם סל שכיבה', 300, 30),
+    ('לול מתקפל',             3, 'לול נייד לתינוק', 150, 30),
+    ('מגבר ומיקרופון אלחוטי', 4, 'מערכת הגברה ניידת לאירוע עד 150 איש', 400, 3),
+    ('כיסא גלגלים',           5, 'כיסא גלגלים סטנדרטי מתקפל', 500, 60),
+    ('הליכון',                5, 'הליכון עם גלגלים', 200, 60);
+
+-- יחידות בנקודות (חלקן מושאלות או בתיקון)
+insert into units (item_id, point_id, code, status) values
+    (1, 1, 'KY-TBL-01', 'available'), (1, 1, 'KY-TBL-02', 'available'), (1, 1, 'KY-TBL-03', 'loaned'),
+    (1, 2, 'GL-TBL-01', 'available'),
+    (2, 1, 'KY-CHR-01', 'available'), (2, 1, 'KY-CHR-02', 'available'), (2, 3, 'RM-CHR-01', 'available'),
+    (3, 1, 'KY-URN-01', 'available'), (3, 1, 'KY-URN-02', 'repair'), (3, 4, 'BK-URN-01', 'available'),
+    (4, 2, 'GL-PLT-01', 'available'),
+    (5, 3, 'RM-STR-01', 'loaned'), (5, 4, 'BK-STR-01', 'available'),
+    (6, 3, 'RM-PLY-01', 'available'),
+    (7, 1, 'KY-AMP-01', 'available'),
+    (8, 2, 'GL-WCH-01', 'available'), (8, 3, 'RM-WCH-01', 'loaned'),
+    (9, 4, 'BK-WLK-01', 'available');

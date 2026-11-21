@@ -1,0 +1,37 @@
+# GemachHub - הרצת כל המערכת: docker compose up --build
+# האתר: http://localhost:5173   |   ה-API: http://localhost:8000/docs
+
+services:
+  backend:
+    build: ./backend
+    env_file: .env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # בסיס נתונים מקומי - רק למי שעובד בלי אינטרנט / בלי Supabase.
+  # הפעלה: docker compose --profile local-db up --build
+  db:
+    image: postgres:16-alpine
+    profiles: ["local-db"]
+    environment:
+      POSTGRES_USER: gemach
+      POSTGRES_PASSWORD: gemach_local_dev
+      POSTGRES_DB: gemachhub
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
