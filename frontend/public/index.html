@@ -29,6 +29,27 @@
       </section>
 
       <!-- אזור הצעת תרומה (כתיבה לבסיס הנתונים) - ענף feature/donation-offer -->
+      <section class="card" id="donate" aria-labelledby="donate-title">
+        <h2 id="donate-title">רוצים לתרום ציוד?</h2>
+        <p class="muted">השאירו פרטים, ומתנדב מהגמ"ח יחזור אליכם לתיאום המסירה.</p>
+        <form class="form" id="donate-form" novalidate>
+          <div class="row">
+            <label>שם מלא<input name="donor_name" required maxlength="60" autocomplete="name" /></label>
+            <label>טלפון נייד<input name="phone" required inputmode="tel" placeholder="050-1234567" autocomplete="tel" /></label>
+          </div>
+          <div class="row">
+            <label>מה תרצו לתרום?<input name="item_name" required maxlength="80" placeholder="למשל: עגלת תינוק" /></label>
+            <label>קטגוריה<select name="category_id"><option value="">לא ידוע</option></select></label>
+          </div>
+          <label>נקודת מסירה<select name="point_id" required><option value="">בחרו נקודה</option></select></label>
+          <label>תיאור ומצב הפריט<textarea name="description" maxlength="500"></textarea></label>
+          <button type="submit">שליחת הצעת תרומה</button>
+          <p id="donate-msg" role="status" aria-live="polite"></p>
+        </form>
+        <h3 class="muted">הצעות אחרונות</h3>
+        <ul class="recent" id="donate-recent"></ul>
+        <script type="module" src="/js/donate.js"></script>
+      </section>
     </main>
 
     <footer class="footer">GemachHub · פרויקט בהנדסת תוכנה · אורי וינוגרד ורפאל זרוק</footer>
