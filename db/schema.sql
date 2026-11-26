@@ -135,3 +135,24 @@ alter table holidays    enable row level security;
 alter table cart_items  enable row level security;
 alter table orders      enable row level security;
 alter table order_units enable row level security;
+
+-- ===== ספרינט 3 =====
+-- מצב הפיקדון בכל הזמנה (AB#178): held = מסגרת תפוסה ותקפה, released = שוחררה, charged = חויב
+alter table orders add column if not exists deposit_status text not null default 'held'
+    check (deposit_status in ('held', 'released', 'charged'));
+
+-- החלטת מנהל על תרומה (AB#279)
+alter table donations add column if not exists decision_reason text;
+alter table donations add column if not exists decided_at timestamptz;
+
+-- יומן פעולות (AB#279): כל החלטה של מנהל נרשמת כאן
+create table if not exists audit_log (
+    id          serial primary key,
+    action      text not null,
+    entity      text not null,
+    entity_id   int  not null,
+    details     text not null default '',
+    actor       text not null default 'מנהל רשת',
+    created_at  timestamptz not null default now()
+);
+alter table audit_log enable row level security;

@@ -1,5 +1,5 @@
 -- GemachHub - נתוני דוגמה (אפשר להריץ שוב, הסקריפט מנקה קודם)
-truncate order_units, orders, cart_items, holidays, notifications, donations, units, items, points, categories restart identity cascade;
+truncate audit_log, order_units, orders, cart_items, holidays, notifications, donations, units, items, points, categories restart identity cascade;
 
 insert into categories (name, sort_order) values
     ('ריהוט לאירועים', 1),
@@ -57,3 +57,8 @@ insert into orders (code, borrower_name, phone, point_id, start_date, end_date, 
     ('GH-1004', 'דוד מזרחי',  '0501111111', 2, current_date - 40, current_date - 35, '18:30', 'returned', 100, now() - interval '40 days', now() - interval '35 days');
 insert into order_units (order_id, unit_id, returned_at) values
     (1, 3, null), (2, 12, null), (2, 17, null), (3, 1, null), (3, 5, null), (4, 4, now() - interval '35 days');
+
+-- תרומות לדוגמה שממתינות להחלטה (AB#279)
+insert into donations (donor_name, phone, item_name, category_id, description, point_id, photo) values
+    ('שרה לוי',   '0527654321', 'לול מתקפל',      3, 'כמעט חדש, עם מזרון', 2, '/img/cat-3.svg'),
+    ('אבי גולן',  '0548887777', 'מיחם 60 כוסות', 2, 'עובד, צריך ניקוי אבנית', 1, '/img/cat-2.svg');

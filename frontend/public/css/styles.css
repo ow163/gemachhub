@@ -132,3 +132,17 @@ button.secondary { background: white; color: var(--green-700); border: 1px solid
 .inline-form label input { flex: none; }
 .item.unavailable { opacity: .6; filter: grayscale(.8); }
 .days-late { color: var(--danger); }
+
+/* עמדת מתנדב וניהול */
+.badge-st { border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 700; background: var(--sand); }
+.badge-st.done { background: var(--green-100); color: var(--green-700); }
+.order-box { border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 6px; margin-top: 12px; }
+.deposit-ok { color: var(--green-700); font-weight: 800; background: var(--green-100); border-radius: 8px; padding: 4px 10px; justify-self: start; }
+.deposit-bad { color: var(--danger); font-weight: 800; background: #fdecea; border-radius: 8px; padding: 4px 10px; justify-self: start; }
+.scanner { width: 100%; max-width: 360px; border-radius: 12px; margin-top: 10px; }
+.donations { display: grid; gap: 12px; }
+.donation { border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; grid-template-columns: 96px 1fr; gap: 14px; }
+.donation img { width: 96px; height: 96px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
+.donation .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px; }
+.donation .actions input { flex: 1 1 180px; }
+button.danger { background: var(--danger); }
