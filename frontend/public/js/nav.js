@@ -4,7 +4,9 @@ const PAGES = [
   { href: "/cart.html", label: "העגלה שלי" },
   { href: "/loans.html", label: "ההשאלות שלי" },
   { href: "/inventory.html", label: "מלאי נקודה" },
+  { href: "/point.html", label: "עמדת מתנדב" },
   { href: "/overdue.html", label: "השאלות באיחור" },
+  { href: "/admin.html", label: "ניהול רשת" },
 ];
 
 const here = location.pathname.replace(/\/index\.html$/, "/");

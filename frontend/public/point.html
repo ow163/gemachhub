@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>עמדת מתנדב – GemachHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <h1>עמדת מתנדב</h1>
+        <label>הנקודה שלי<select id="pt-point" aria-label="הנקודה שלי"></select></label>
+      </section>
+
+      <section class="card" id="pickups" aria-labelledby="pk-title">
+        <h2 id="pk-title">איסופים להיום</h2>
+        <table class="table" id="pk-table">
+          <thead><tr><th>שעה</th><th>הזמנה</th><th>שואל</th><th>פריטים</th><th>סטטוס</th></tr></thead>
+          <tbody><tr><td colspan="5" class="muted">טוען…</td></tr></tbody>
+        </table>
+      </section>
+
+      <section class="card" id="handover" aria-labelledby="ho-title">
+        <h2 id="ho-title">מסירת הזמנה</h2>
+        <form class="inline-form" id="ho-form">
+          <label class="grow">קוד הזמנה או טלפון<input name="query" placeholder="GH-1003 או 050-3333333" required /></label>
+          <button type="submit">חיפוש</button>
+          <button type="button" class="secondary" id="ho-scan" hidden>סריקת QR</button>
+        </form>
+        <video id="ho-video" class="scanner" hidden playsinline muted></video>
+        <div id="ho-result" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer class="footer">GemachHub · פרויקט בהנדסת תוכנה · אורי וינוגרד ורפאל זרוק</footer>
+    <script type="module" src="/js/nav.js"></script>
+    <script type="module" src="/js/point.js"></script>
+  </body>
+</html>
