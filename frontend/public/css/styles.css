@@ -157,3 +157,7 @@ dialog::backdrop { background: rgba(11, 61, 46, .35); }
 .kpi { background: var(--sand); border-radius: 12px; padding: 14px; }
 .kpi .num { font-size: 30px; font-weight: 800; color: var(--green-900); }
 .kpi.alert .num { color: var(--danger); }
+
+/* באג #438: שדה בתוך label (עמודה) לא נמתח לגובה בשורות הסינון */
+.filters { align-items: flex-end; }
+.filters label input, .filters label select { flex: none; }
