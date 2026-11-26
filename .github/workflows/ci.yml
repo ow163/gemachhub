@@ -34,5 +34,7 @@ jobs:
       - run: docker compose -f docker-compose.test.yml run --rm e2e
       - if: always()
         run: cat e2e/results/summary.md || true
+      - if: failure()
+        run: docker compose -f docker-compose.test.yml logs --tail=80
       - if: always()
         run: docker compose -f docker-compose.test.yml down
