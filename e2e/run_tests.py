@@ -21,7 +21,7 @@ RESULTS = HERE / "results"
 
 def main():
     RESULTS.mkdir(exist_ok=True)
-    started = datetime.now()
+    started = datetime.now().astimezone()
     code = pytest.main([str(HERE / "test_system.py"), "-v", "-p", "no:cacheprovider",
                         f"--junitxml={RESULTS / 'junit.xml'}"])
 
@@ -38,7 +38,7 @@ def main():
     summary = "\n".join([
         "# סיכום הרצת בדיקות מערכת",
         "",
-        f"- תאריך ושעת ההרצה: {started:%d/%m/%Y %H:%M}",
+        f"- תאריך ושעת ההרצה: {started:%d/%m/%Y %H:%M} ({started.tzname()})",
         f"- כתובת האתר שנבדק: {os.environ.get('BASE_URL', 'http://localhost:5173')}",
         f"- עברו: {passed} · נכשלו: {failed} · דולגו: {skipped}",
         "",
