@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>השאלות באיחור – GemachHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card" aria-labelledby="od-title">
+        <h1 id="od-title">השאלות באיחור</h1>
+        <label>נקודה<select id="od-point" aria-label="בחירת נקודה"></select></label>
+        <p class="muted" id="od-count" aria-live="polite"></p>
+        <table class="table" id="od-table">
+          <thead><tr><th>הזמנה</th><th>שואל</th><th>טלפון</th><th>פריטים</th><th>היה צריך להחזיר</th><th>ימי איחור</th></tr></thead>
+          <tbody><tr><td colspan="6" class="muted">טוען…</td></tr></tbody>
+        </table>
+      </section>
+    </main>
+    <footer class="footer">GemachHub · פרויקט בהנדסת תוכנה · אורי וינוגרד ורפאל זרוק</footer>
+    <script type="module" src="/js/nav.js"></script>
+    <script type="module" src="/js/overdue.js"></script>
+  </body>
+</html>
