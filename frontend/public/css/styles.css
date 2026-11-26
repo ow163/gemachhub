@@ -161,3 +161,7 @@ dialog::backdrop { background: rgba(11, 61, 46, .35); }
 /* באג #438: שדה בתוך label (עמודה) לא נמתח לגובה בשורות הסינון */
 .filters { align-items: flex-end; }
 .filters label input, .filters label select { flex: none; }
+
+/* באג #439: בדף הבית שני הכרטיסים (נקודות ותרומה) חולקים את הרוחב, והטופס לא יוצא מהכרטיס */
+.grid { grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr)); }
+.grid > .card, .form .row > * { min-width: 0; }
