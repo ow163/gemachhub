@@ -130,3 +130,5 @@ button.secondary { background: white; color: var(--green-700); border: 1px solid
 .add-cart { align-self: flex-start; margin-top: 6px; padding: 6px 12px; font-size: 14px; }
 .inline-form { align-items: flex-end; }
 .inline-form label input { flex: none; }
+.item.unavailable { opacity: .6; filter: grayscale(.8); }
+.days-late { color: var(--danger); }

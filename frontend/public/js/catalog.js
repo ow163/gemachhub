@@ -6,13 +6,18 @@ const list = document.getElementById("catalog-items");
 const search = document.getElementById("catalog-search");
 const category = document.getElementById("catalog-category");
 const timing = document.getElementById("catalog-timing");
+const rangeStart = document.getElementById("range-start");
+const rangeEnd = document.getElementById("range-end");
+const rangePoint = document.getElementById("range-point");
+const fmtDate = (d) => d.split("-").reverse().join("/");
 
 export function cardHtml(it) {
   const n = it.available_units;
+  // AB#98: פריט שלא זמין בטווח מוצג באפור, עם התאריך הקרוב שבו יתפנה
   const avail = n === 0
-    ? `<span class="avail none">לא זמין כרגע</span>`
+    ? `<span class="avail none">${it.next_free_date ? `לא זמין בתאריכים האלה · יתפנה ב-${fmtDate(it.next_free_date)}` : "לא זמין כרגע"}</span>`
     : `<span class="avail">${n === 1 ? "יחידה אחת זמינה" : `${n} יחידות זמינות`}</span>`;
-  return `<article class="item" data-item-id="${it.id}">
+  return `<article class="item${n === 0 ? " unavailable" : ""}" data-item-id="${it.id}">
     <span class="tag">${escapeHtml(it.category)}</span>
     <h3><a class="item-link" href="/item.html?id=${it.id}">${escapeHtml(it.name)}</a></h3>
     <span class="muted">${escapeHtml(it.description)}</span>
@@ -39,6 +44,11 @@ async function load() {
   const params = new URLSearchParams();
   if (category.value) params.set("category", category.value);
   if (search.value.trim()) params.set("q", search.value.trim());
+  if (rangeStart.value && rangeEnd.value) {
+    params.set("start", rangeStart.value);
+    params.set("end", rangeEnd.value);
+    if (rangePoint.value) params.set("point", rangePoint.value);
+  }
   const started = performance.now();
   try {
     render(await request(`/items?${params}`));
@@ -89,6 +99,16 @@ async function init() {
     timer = setTimeout(load, 300);
   });
   category.addEventListener("change", load);
+  [rangeStart, rangeEnd, rangePoint].forEach((el) => el.addEventListener("change", load));
+  const today = new Date().toISOString().slice(0, 10);
+  rangeStart.min = today;
+  rangeEnd.min = today;
+  try {
+    const points = await request("/points");
+    rangePoint.insertAdjacentHTML("beforeend", points.map((p) => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join(""));
+  } catch {
+    /* בלי רשימת נקודות אפשר עדיין לבדוק זמינות בכל הנקודות */
+  }
   load();
 }
 

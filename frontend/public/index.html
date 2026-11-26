@@ -27,6 +27,11 @@
           <input id="catalog-search" type="search" placeholder="חיפוש פריט, למשל: מיחם" aria-label="חיפוש פריט" />
           <select id="catalog-category" aria-label="סינון לפי קטגוריה"><option value="">כל הקטגוריות</option></select>
         </div>
+        <div class="filters" id="range-filters">
+          <label>מתאריך<input id="range-start" type="date" /></label>
+          <label>עד תאריך<input id="range-end" type="date" /></label>
+          <label>בנקודה<select id="range-point"><option value="">כל הנקודות</option></select></label>
+        </div>
         <div class="items" id="catalog-items"><p class="muted">טוען…</p></div>
         <p class="muted small" id="catalog-timing" aria-live="polite"></p>
         <script type="module" src="/js/catalog.js"></script>
