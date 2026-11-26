@@ -156,3 +156,26 @@ create table if not exists audit_log (
     created_at  timestamptz not null default now()
 );
 alter table audit_log enable row level security;
+
+-- תיעוד נזק (AB#204): תמונה, תיאור ודרגת חומרה מתוך רשימה
+create table if not exists damages (
+    id           serial primary key,
+    unit_id      int  not null references units(id),
+    order_id     int  references orders(id),
+    severity     text not null check (severity in ('light', 'medium', 'severe')),
+    description  text not null,
+    photo        text not null,
+    created_at   timestamptz not null default now()
+);
+create index if not exists idx_damages_order on damages(order_id);
+
+-- לוח בקרה למנהל (AB#300): המדדים מחושבים פעם ביום ונשמרים כאן
+create table if not exists kpi_daily (
+    day        date not null,
+    point_id   int  not null default 0,
+    data       jsonb not null,
+    primary key (day, point_id)
+);
+
+alter table damages   enable row level security;
+alter table kpi_daily enable row level security;

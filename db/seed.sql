@@ -1,5 +1,5 @@
 -- GemachHub - נתוני דוגמה (אפשר להריץ שוב, הסקריפט מנקה קודם)
-truncate audit_log, order_units, orders, cart_items, holidays, notifications, donations, units, items, points, categories restart identity cascade;
+truncate kpi_daily, damages, audit_log, order_units, orders, cart_items, holidays, notifications, donations, units, items, points, categories restart identity cascade;
 
 insert into categories (name, sort_order) values
     ('ריהוט לאירועים', 1),
