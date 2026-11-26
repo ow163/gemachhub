@@ -22,6 +22,15 @@
     <main class="grid">
       <!-- כל חבר צוות מוסיף בענף משלו אזור אחד שמבצע בקשה לבסיס הנתונים -->
       <!-- אזור הקטלוג (קריאה מבסיס הנתונים) - ענף feature/catalog-items -->
+      <section class="card wide" id="catalog" aria-labelledby="catalog-title">
+        <h2 id="catalog-title">קטלוג הציוד</h2>
+        <div class="filters">
+          <input id="catalog-search" type="search" placeholder="חיפוש פריט, למשל: מיחם" aria-label="חיפוש פריט" />
+          <select id="catalog-category" aria-label="סינון לפי קטגוריה"><option value="">כל הקטגוריות</option></select>
+        </div>
+        <div class="items" id="catalog-items"><p class="muted">טוען…</p></div>
+        <script type="module" src="/js/catalog.js"></script>
+      </section>
 
       <section class="card" id="points" aria-labelledby="points-title">
         <h2 id="points-title">נקודות הגמ"ח</h2>
