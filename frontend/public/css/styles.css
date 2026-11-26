@@ -157,3 +157,25 @@ dialog::backdrop { background: rgba(11, 61, 46, .35); }
 .kpi { background: var(--sand); border-radius: 12px; padding: 14px; }
 .kpi .num { font-size: 30px; font-weight: 800; color: var(--green-900); }
 .kpi.alert .num { color: var(--danger); }
+
+/* באג #438: שדה בתוך label (עמודה) לא נמתח לגובה בשורות הסינון */
+.filters { align-items: flex-end; }
+.filters label input, .filters label select { flex: none; }
+
+/* באג #439: בדף הבית שני הכרטיסים (נקודות ותרומה) חולקים את הרוחב, והטופס לא יוצא מהכרטיס */
+.grid { grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr)); }
+.grid > .card, .form .row > * { min-width: 0; }
+
+/* באג #440: בטלפון הדף לא רחב מהמסך. טבלה רחבה נגללת לרוחב בתוך הכרטיס שלה */
+.page { grid-template-columns: minmax(0, 1fr); }
+.card { min-width: 0; overflow-x: auto; }
+.form .row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 520px) { .form .row { grid-template-columns: minmax(0, 1fr); } }
+input, select, textarea { max-width: 100%; }
+.form { grid-template-columns: minmax(0, 1fr); }
+.donation { grid-template-columns: 96px minmax(0, 1fr); }
+.donation .actions input { min-width: 0; }
+
+/* קוד QR של ההזמנה (באג #441) */
+.qr { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.qr svg { width: 120px; height: 120px; background: white; border: 1px solid var(--line); border-radius: 8px; flex: none; }

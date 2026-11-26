@@ -1,0 +1,77 @@
+# GemachHub - סביבת בדיקות נפרדת. לא נוגעת בבסיס הנתונים המשותף (Supabase) ולא בקובץ .env.
+# כל הרצה מקימה בסיס נתונים חדש ונקי מ-db/schema.sql ו-db/seed.sql (הנתונים נשמרים בזיכרון בלבד).
+#
+# בדיקות יחידה (60 בדיקות של ה-API):
+#   docker compose -f docker-compose.test.yml run --rm unit-tests
+# בדיקות מערכת (10 בדיקות Playwright בדפדפן Chromium על האתר כולו):
+#   docker compose -f docker-compose.test.yml run --rm e2e
+# ניקוי בסוף:
+#   docker compose -f docker-compose.test.yml down
+
+name: gemachhub-test
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: gemach
+      POSTGRES_PASSWORD: gemach_test
+      POSTGRES_DB: gemachhub
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gemach -d gemachhub"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://gemach:gemach_test@db:5432/gemachhub
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/api/health"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  # 10 בדיקות המערכת. האימג' כולל את הדפדפנים; pytest ו-playwright מותקנים לפי e2e/requirements.txt
+  e2e:
+    image: mcr.microsoft.com/playwright/python:v1.57.0-noble
+    working_dir: /e2e
+    environment:
+      BASE_URL: http://frontend
+    volumes:
+      - ./e2e:/e2e
+    ipc: host
+    depends_on:
+      frontend:
+        condition: service_healthy
+    command: ["bash", "-c", "pip install --quiet --no-cache-dir -r requirements.txt && python run_tests.py"]
+
+  # בדיקות היחידה של ה-API (לא צריכות בסיס נתונים - הן משתמשות בחיבור מדומה)
+  unit-tests:
+    image: python:3.12-slim
+    working_dir: /backend
+    volumes:
+      - ./backend:/backend
+    environment:
+      PYTHONDONTWRITEBYTECODE: "1"
+    command: ["bash", "-c", "pip install --quiet --no-cache-dir -r requirements-dev.txt && pytest -q -p no:cacheprovider"]
