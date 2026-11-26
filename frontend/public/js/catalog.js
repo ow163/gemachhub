@@ -13,7 +13,7 @@ export function cardHtml(it) {
     : `<span class="avail">${n === 1 ? "יחידה אחת זמינה" : `${n} יחידות זמינות`}</span>`;
   return `<article class="item" data-item-id="${it.id}">
     <span class="tag">${escapeHtml(it.category)}</span>
-    <h3>${escapeHtml(it.name)}</h3>
+    <h3><a class="item-link" href="/item.html?id=${it.id}">${escapeHtml(it.name)}</a></h3>
     <span class="muted">${escapeHtml(it.description)}</span>
     <span>פיקדון: ₪${it.deposit_amount} · עד ${it.max_loan_days} ימים</span>
     ${avail}

@@ -1,6 +1,7 @@
 // תפריט עליון משותף לכל המסכים. כל מסך חדש מוסיף כאן שורה אחת.
 const PAGES = [
   { href: "/", label: "קטלוג ונקודות" },
+  { href: "/inventory.html", label: "מלאי נקודה" },
 ];
 
 const here = location.pathname.replace(/\/index\.html$/, "/");
