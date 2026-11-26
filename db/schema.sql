@@ -59,3 +59,10 @@ alter table points     enable row level security;
 alter table items      enable row level security;
 alter table units      enable row level security;
 alter table donations  enable row level security;
+
+-- ===== ספרינט 1 =====
+-- מפת נקודות (AB#55): מיקום ושעות פעילות מובנות לכל נקודה
+alter table points add column if not exists lat        double precision;
+alter table points add column if not exists lng        double precision;
+alter table points add column if not exists open_time  time not null default '17:00';
+alter table points add column if not exists close_time time not null default '20:00';

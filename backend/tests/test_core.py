@@ -25,3 +25,19 @@ def test_unknown_route_returns_json_404(make_client):
     res = make_client(FakeConn()).get("/api/nothing-here")
     assert res.status_code == 404
     assert "error" in res.get_json()
+
+
+def test_categories_include_item_count(make_client):
+    rows = [{"id": 1, "name": "ריהוט לאירועים", "item_count": 2}]
+    conn = FakeConn(rows)
+    res = make_client(conn).get("/api/categories")
+    assert res.get_json() == rows
+    assert "count(i.id)" in conn.queries[0][0]
+
+
+def test_points_return_location_and_only_active(make_client):
+    rows = [{"id": 1, "name": "גמ\"ח קריית יובל", "lat": 31.76, "lng": 35.17, "open_time": "17:00", "close_time": "20:00"}]
+    conn = FakeConn(rows)
+    res = make_client(conn).get("/api/points")
+    assert res.get_json()[0]["lat"] == 31.76
+    assert "where is_active" in conn.queries[0][0]
