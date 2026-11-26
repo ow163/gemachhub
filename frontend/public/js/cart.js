@@ -11,6 +11,7 @@ const cartMsg = document.getElementById("cart-msg");
 const orderCard = document.getElementById("order-card");
 const orderForm = document.getElementById("order-form");
 const orderMsg = document.getElementById("order-msg");
+const orderResult = document.getElementById("order-result");
 let points = [];
 
 function renderCart(cart) {
@@ -94,12 +95,15 @@ orderForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const data = Object.fromEntries(new FormData(orderForm));
   data.phone = getPhone();
+  orderResult.innerHTML = "";
   orderMsg.className = "";
   orderMsg.textContent = "שולח…";
   try {
     const res = await request("/orders", { method: "POST", body: JSON.stringify(data) });
     orderMsg.className = "";
-    orderMsg.innerHTML = `<div class="confirm" id="order-confirm">ההזמנה התקבלה! מספר ההזמנה:
+    orderMsg.textContent = "";
+    // אישור ההזמנה מוצג מחוץ לכרטיס ההזמנה, כי הכרטיס מוסתר כשהעגלה מתרוקנת אחרי ההזמנה (באג #436 שנמצא בבדיקת המערכת TC-08)
+    orderResult.innerHTML = `<div class="confirm" id="order-confirm">ההזמנה התקבלה! מספר ההזמנה:
       <div class="code">${escapeHtml(res.code)}</div>
       פיקדון לתשלום באיסוף: ₪${res.deposit_total}. אפשר לראות אותה ב<a href="/loans.html">ההשאלות שלי</a>.</div>`;
     orderForm.reset();
