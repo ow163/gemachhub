@@ -45,7 +45,8 @@
       </section>
 
       <dialog id="damage-dialog" aria-labelledby="dm-title">
-        <form method="dialog" class="form" id="damage-form">
+        <!-- novalidate: ההודעה על תמונה חסרה מוצגת בעברית בתוך החלון (באג #437) -->
+        <form method="dialog" class="form" id="damage-form" novalidate>
           <h2 id="dm-title">תיעוד נזק ביחידה <span id="dm-code"></span></h2>
           <label>דרגת חומרה<select name="severity" required>
             <option value="">בחרו דרגה</option><option value="light">קל</option><option value="medium">בינוני</option><option value="severe">חמור</option>
