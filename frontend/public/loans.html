@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ההשאלות שלי – GemachHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card" aria-labelledby="loans-title">
+        <h1 id="loans-title">ההשאלות שלי</h1>
+        <form class="inline-form" id="loans-form">
+          <label class="grow">מספר הטלפון שלי<input name="phone" inputmode="tel" placeholder="050-1234567" required autocomplete="tel" /></label>
+          <button type="submit">הצגה</button>
+        </form>
+        <div class="loans" id="loans-list" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer class="footer">GemachHub · פרויקט בהנדסת תוכנה · אורי וינוגרד ורפאל זרוק</footer>
+    <script type="module" src="/js/nav.js"></script>
+    <script type="module" src="/js/loans.js"></script>
+  </body>
+</html>
