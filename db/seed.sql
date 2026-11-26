@@ -1,5 +1,5 @@
 -- GemachHub - נתוני דוגמה (אפשר להריץ שוב, הסקריפט מנקה קודם)
-truncate notifications, donations, units, items, points, categories restart identity cascade;
+truncate order_units, orders, cart_items, holidays, notifications, donations, units, items, points, categories restart identity cascade;
 
 insert into categories (name, sort_order) values
     ('ריהוט לאירועים', 1),
@@ -40,3 +40,20 @@ insert into units (item_id, point_id, code, status) values
 
 -- גלריית תמונות לכל פריט (AB#103)
 update items set images = array['/img/cat-' || category_id || '.svg', '/img/gemach-label.svg'];
+
+-- חגים לפי הלוח העברי, כפי שהם בישראל (AB#114)
+insert into holidays (day, name) values
+    ('2026-09-12', 'ראש השנה'), ('2026-09-13', 'ראש השנה'), ('2026-09-21', 'יום כיפור'),
+    ('2026-09-26', 'סוכות'), ('2026-10-03', 'שמיני עצרת'),
+    ('2027-04-22', 'פסח'), ('2027-04-28', 'שביעי של פסח'), ('2027-06-11', 'שבועות'),
+    ('2027-10-02', 'ראש השנה'), ('2027-10-03', 'ראש השנה'), ('2027-10-11', 'יום כיפור'),
+    ('2027-10-16', 'סוכות'), ('2027-10-23', 'שמיני עצרת');
+
+-- הזמנות לדוגמה, בתאריכים יחסיים להיום (AB#151)
+insert into orders (code, borrower_name, phone, point_id, start_date, end_date, pickup_time, status, deposit_total, picked_up_at, returned_at) values
+    ('GH-1001', 'דוד מזרחי',  '0501111111', 1, current_date - 12, current_date - 5, '17:30', 'picked_up', 100, now() - interval '12 days', null),
+    ('GH-1002', 'רחל אברהם',  '0502222222', 3, current_date - 3,  current_date + 4, '16:30', 'picked_up', 800, now() - interval '3 days', null),
+    ('GH-1003', 'יוסי כהן',   '0503333333', 1, current_date,      current_date + 3, '18:00', 'reserved',  110, null, null),
+    ('GH-1004', 'דוד מזרחי',  '0501111111', 2, current_date - 40, current_date - 35, '18:30', 'returned', 100, now() - interval '40 days', now() - interval '35 days');
+insert into order_units (order_id, unit_id, returned_at) values
+    (1, 3, null), (2, 12, null), (2, 17, null), (3, 1, null), (3, 5, null), (4, 4, now() - interval '35 days');

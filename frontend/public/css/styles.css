@@ -113,3 +113,20 @@ button.secondary { background: white; color: var(--green-700); border: 1px solid
 .st-available { color: var(--green-700); } .st-loaned { color: #1d4ed8; } .st-repair { color: #b45309; } .st-lost { color: var(--danger); }
 .inline-form { display: flex; gap: 8px; flex-wrap: wrap; }
 .inline-form input { flex: 1 1 160px; }
+
+/* עגלה והשאלות */
+.grow { flex: 1 1 220px; }
+.total { font-size: 18px; margin: 12px 0 4px; }
+.qty { width: 80px; }
+.link-btn { background: none; color: var(--danger); padding: 4px 8px; font-weight: 500; }
+.link-btn:hover { background: #fdecea; }
+.confirm { background: var(--green-100); border-radius: 12px; padding: 14px; }
+.confirm .code { font-size: 28px; font-weight: 800; letter-spacing: 2px; color: var(--green-900); }
+.loans { display: grid; gap: 12px; margin-top: 14px; }
+.loan { border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 4px; }
+.loan.overdue { border-color: var(--danger); background: #fdecea; }
+.loan.overdue .status { color: var(--danger); font-weight: 800; }
+.loan .status { font-weight: 700; color: var(--green-700); }
+.add-cart { align-self: flex-start; margin-top: 6px; padding: 6px 12px; font-size: 14px; }
+.inline-form { align-items: flex-end; }
+.inline-form label input { flex: none; }

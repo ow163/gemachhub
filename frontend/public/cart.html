@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>העגלה שלי – GemachHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card" aria-labelledby="cart-title">
+        <h1 id="cart-title">העגלה שלי</h1>
+        <form class="inline-form" id="login-form">
+          <label class="grow">מספר הטלפון שלי<input name="phone" inputmode="tel" placeholder="050-1234567" required autocomplete="tel" /></label>
+          <button type="submit">כניסה</button>
+        </form>
+        <p class="muted" id="login-state"></p>
+        <div id="cart-box" hidden>
+          <table class="table" id="cart-table">
+            <thead><tr><th>פריט</th><th>כמות</th><th>פיקדון ליחידה</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <p class="total">סה"כ פיקדון: <strong id="cart-total">₪0</strong></p>
+          <p id="cart-msg" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="card" id="order-card" aria-labelledby="order-title" hidden>
+        <h2 id="order-title">פרטי ההזמנה</h2>
+        <form class="form" id="order-form" novalidate>
+          <div class="row">
+            <label>שם מלא<input name="name" required maxlength="60" autocomplete="name" /></label>
+            <label>נקודת איסוף<select name="point_id" required></select></label>
+          </div>
+          <div class="row">
+            <label>תאריך איסוף<input name="start_date" type="date" required /></label>
+            <label>תאריך החזרה<input name="end_date" type="date" required /></label>
+          </div>
+          <label>שעת איסוף<select name="pickup_time" required></select></label>
+          <p class="muted" id="order-hint">אין איסוף והחזרה בשבתות ובחגים. משך ההשאלה עד המקסימום של הפריטים שבעגלה.</p>
+          <button type="submit">שליחת ההזמנה</button>
+          <p id="order-msg" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+    <footer class="footer">GemachHub · פרויקט בהנדסת תוכנה · אורי וינוגרד ורפאל זרוק</footer>
+    <script type="module" src="/js/nav.js"></script>
+    <script type="module" src="/js/cart.js"></script>
+  </body>
+</html>

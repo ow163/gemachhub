@@ -1,6 +1,8 @@
 // תפריט עליון משותף לכל המסכים. כל מסך חדש מוסיף כאן שורה אחת.
 const PAGES = [
   { href: "/", label: "קטלוג ונקודות" },
+  { href: "/cart.html", label: "העגלה שלי" },
+  { href: "/loans.html", label: "ההשאלות שלי" },
   { href: "/inventory.html", label: "מלאי נקודה" },
 ];
 

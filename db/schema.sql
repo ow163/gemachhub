@@ -83,3 +83,55 @@ create table if not exists notifications (
 );
 create index if not exists idx_notifications_phone on notifications(phone);
 alter table notifications enable row level security;
+
+-- ===== ספרינט 2 =====
+-- חגים (AB#114): ימים שבהם אין איסוף והחזרה, בנוסף לשבת
+create table if not exists holidays (
+    day   date primary key,
+    name  text not null
+);
+
+-- עגלת הזמנה (AB#109): נשמרת בשרת לפי מספר הטלפון
+create table if not exists cart_items (
+    phone       text not null,
+    item_id     int  not null references items(id),
+    qty         int  not null check (qty > 0),
+    updated_at  timestamptz not null default now(),
+    primary key (phone, item_id)
+);
+
+-- הזמנות והשאלות (AB#114, AB#151)
+create table if not exists orders (
+    id             serial primary key,
+    code           text not null unique,
+    borrower_name  text not null,
+    phone          text not null,
+    point_id       int  not null references points(id),
+    start_date     date not null,
+    end_date       date not null,
+    pickup_time    time not null,
+    status         text not null default 'reserved'
+                   check (status in ('reserved', 'picked_up', 'returned', 'cancelled')),
+    deposit_total  int  not null default 0,
+    created_at     timestamptz not null default now(),
+    picked_up_at   timestamptz,
+    returned_at    timestamptz,
+    check (end_date >= start_date)
+);
+
+-- היחידות הפיזיות ששויכו לכל הזמנה
+create table if not exists order_units (
+    order_id     int not null references orders(id) on delete cascade,
+    unit_id      int not null references units(id),
+    returned_at  timestamptz,
+    primary key (order_id, unit_id)
+);
+
+create index if not exists idx_orders_phone on orders(phone);
+create index if not exists idx_orders_point_dates on orders(point_id, start_date, end_date);
+create index if not exists idx_order_units_unit on order_units(unit_id);
+
+alter table holidays    enable row level security;
+alter table cart_items  enable row level security;
+alter table orders      enable row level security;
+alter table order_units enable row level security;

@@ -1,5 +1,6 @@
 // קטלוג הציוד: קריאה מבסיס הנתונים דרך GET /api/items (AB#88, AB#93)
 import { request, escapeHtml } from "./api.js";
+import { getPhone } from "./session.js";
 
 const list = document.getElementById("catalog-items");
 const search = document.getElementById("catalog-search");
@@ -17,6 +18,7 @@ export function cardHtml(it) {
     <span class="muted">${escapeHtml(it.description)}</span>
     <span>פיקדון: ₪${it.deposit_amount} · עד ${it.max_loan_days} ימים</span>
     ${avail}
+    ${n > 0 ? `<button type="button" class="add-cart" data-add="${it.id}">הוספה לעגלה</button>` : ""}
   </article>`;
 }
 
@@ -49,7 +51,28 @@ async function load() {
   }
 }
 
+// AB#109: הוספה לעגלה. בלי מספר טלפון שמור, עוברים לעגלה לכניסה
+async function addToCart(id, button) {
+  const phone = getPhone();
+  if (!phone) {
+    location.href = `/cart.html?add=${id}`;
+    return;
+  }
+  try {
+    const cart = await request(`/cart?phone=${encodeURIComponent(phone)}`);
+    const current = cart.items.find((i) => i.item_id === id);
+    await request("/cart", { method: "PUT", body: JSON.stringify({ phone, item_id: id, qty: (current?.qty || 0) + 1 }) });
+    button.textContent = "נוסף לעגלה ✓";
+  } catch (e) {
+    button.textContent = e.message;
+  }
+}
+
 async function init() {
+  list.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-add]");
+    if (b) addToCart(Number(b.dataset.add), b);
+  });
   try {
     // AB#88: ליד כל קטגוריה מוצג מספר הפריטים שבה
     const cats = await request("/categories");
