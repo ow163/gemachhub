@@ -26,10 +26,11 @@ def health():
 
 @bp.get("/points")
 def list_points():
-    """כל נקודות הגמ"ח הפעילות."""
+    """כל נקודות הגמ"ח הפעילות, עם מיקום לתצוגה על המפה (AB#55). נקודה מושבתת לא מוצגת."""
     rows = get_conn().execute(
         """
-        select id, name, neighborhood, address, opening_hours
+        select id, name, neighborhood, address, opening_hours, lat, lng,
+               to_char(open_time, 'HH24:MI') as open_time, to_char(close_time, 'HH24:MI') as close_time
         from points
         where is_active
         order by id
@@ -40,6 +41,14 @@ def list_points():
 
 @bp.get("/categories")
 def list_categories():
-    """קטגוריות הציוד לפי סדר התצוגה."""
-    rows = get_conn().execute("select id, name from categories order by sort_order, id").fetchall()
+    """קטגוריות הציוד לפי סדר התצוגה, עם מספר הפריטים בכל קטגוריה (AB#88)."""
+    rows = get_conn().execute(
+        """
+        select c.id, c.name, count(i.id) as item_count
+        from categories c
+        left join items i on i.category_id = c.id
+        group by c.id
+        order by c.sort_order, c.id
+        """
+    ).fetchall()
     return jsonify(rows)

@@ -26,3 +26,15 @@ def test_items_ignores_invalid_category(make_client):
     res = make_client(conn).get("/api/items?category=abc")
     assert res.status_code == 200
     assert conn.queries[0][1]["category"] is None
+
+
+def test_search_ignores_niqqud_and_extra_spaces(make_client):
+    conn = FakeConn([])
+    make_client(conn).get("/api/items?q=" + "  מֵיחַם   גָּדוֹל ")
+    assert conn.queries[0][1]["q"] == "מיחם גדול"
+
+
+def test_empty_search_after_cleanup_is_none():
+    from app.items_routes import normalize_query
+    assert normalize_query("   ") is None
+    assert normalize_query("כִּסֵּא") == "כסא"

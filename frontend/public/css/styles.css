@@ -67,3 +67,26 @@ button:disabled { opacity: 0.6; cursor: default; }
 .form .row { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
 @media (max-width: 520px) { .form .row { grid-template-columns: 1fr; } }
 .recent { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 6px; font-size: 14px; }
+
+/* תפריט עליון */
+.topnav { background: var(--green-900); color: white; }
+.topnav-inner { max-width: 1080px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.topnav-brand { display: flex; align-items: center; gap: 8px; color: white; font-weight: 800; text-decoration: none; }
+.topnav-brand .logo { width: 28px; height: 28px; font-size: 16px; }
+.topnav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; }
+.topnav a { color: #d6eee4; text-decoration: none; padding: 6px 10px; border-radius: 8px; font-weight: 500; }
+.topnav a:hover, .topnav a[aria-current="page"] { background: rgba(255,255,255,.14); color: white; }
+
+/* מפת נקודות */
+.map svg { width: 100%; height: auto; display: block; margin-bottom: 10px; }
+.map-bg { fill: var(--green-100); }
+.pin circle { fill: var(--green-700); stroke: white; stroke-width: 3; cursor: pointer; }
+.pin text { font-size: 11px; fill: var(--green-900); font-weight: 700; }
+.pin.selected circle, .pin:focus circle { fill: #e67e22; }
+.point-details { display: flex; flex-direction: column; gap: 2px; background: var(--sand); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; min-height: 44px; }
+.points li { cursor: pointer; }
+.points li.selected strong { color: #c25e0c; }
+.small { font-size: 12px; }
+.empty { grid-column: 1 / -1; background: var(--sand); border-radius: 12px; padding: 14px; }
+.empty p { margin: 0 0 6px; }
+button.secondary { background: white; color: var(--green-700); border: 1px solid var(--green-700); }
