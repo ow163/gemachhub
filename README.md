@@ -4,7 +4,7 @@
 פרויקט בקורס הנדסת תוכנה, מכון לב. **צוות:** אורי וינוגרד (ראש צוות, Product Owner), רפאל זרוק (Scrum Master).
 
 - ניהול הפרויקט (Backlog, ספרינטים, שאילתות, לוחות מעקב, Test Cases, ויקי): https://dev.azure.com/owinogra/GemachHub
-- מדריך למשתמש עם צילומי מסך: בוויקי של הפרויקט, בדף "מדריך למשתמש"
+- מדריך למשתמש עם צילומי מסך: [docs/USER_GUIDE.md](docs/USER_GUIDE.md) (וגם בוויקי של הפרויקט, בדף "מדריך למשתמש")
 
 ## ארכיטקטורה
 
@@ -46,12 +46,15 @@ gemachhub/
 ├── frontend/
 │   ├── Dockerfile
 │   ├── nginx.conf            # הגשת האתר והעברת /api ל-backend
-│   └── public/               # דפי האתר, css/, js/, img/
+│   └── public/               # דפי האתר, css/, js/ (כולל js/vendor: ספריית QR ברישיון MIT), img/
 ├── e2e/
 │   ├── test_system.py        # 10 בדיקות המערכת (TC-01 עד TC-10)
 │   ├── conftest.py           # הגדרות משותפות לבדיקות
 │   ├── run_tests.py          # הרצה ושמירת סיכום עם תאריך ב-e2e/results
 │   └── requirements.txt      # pytest ו-playwright
+├── docs/
+│   ├── USER_GUIDE.md         # מדריך למשתמש עם צילומי מסך
+│   └── user-guide/           # צילומי המסך
 └── .github/                  # תבנית PR ו-CI (בדיקות יחידה, בניית דוקר, בדיקות מערכת)
 ```
 
