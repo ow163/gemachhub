@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>מלאי נקודה – GemachHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card" aria-labelledby="inv-title">
+        <h1 id="inv-title">מלאי הנקודה</h1>
+        <div class="filters">
+          <label>נקודה<select id="inv-point" aria-label="בחירת נקודה"></select></label>
+          <label>פריט<select id="inv-item" aria-label="סינון לפי פריט"><option value="">כל הפריטים</option></select></label>
+        </div>
+        <div class="summary" id="inv-summary" aria-live="polite"></div>
+        <table class="table" id="inv-table">
+          <thead><tr><th>קוד יחידה</th><th>פריט</th><th>סטטוס</th></tr></thead>
+          <tbody><tr><td colspan="3" class="muted">טוען…</td></tr></tbody>
+        </table>
+      </section>
+    </main>
+    <footer class="footer">GemachHub · פרויקט בהנדסת תוכנה · אורי וינוגרד ורפאל זרוק</footer>
+    <script type="module" src="/js/nav.js"></script>
+    <script type="module" src="/js/inventory.js"></script>
+  </body>
+</html>

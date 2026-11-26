@@ -1,5 +1,5 @@
 -- GemachHub - נתוני דוגמה (אפשר להריץ שוב, הסקריפט מנקה קודם)
-truncate donations, units, items, points, categories restart identity cascade;
+truncate notifications, donations, units, items, points, categories restart identity cascade;
 
 insert into categories (name, sort_order) values
     ('ריהוט לאירועים', 1),
@@ -37,3 +37,6 @@ insert into units (item_id, point_id, code, status) values
     (7, 1, 'KY-AMP-01', 'available'),
     (8, 2, 'GL-WCH-01', 'available'), (8, 3, 'RM-WCH-01', 'loaned'),
     (9, 4, 'BK-WLK-01', 'available');
+
+-- גלריית תמונות לכל פריט (AB#103)
+update items set images = array['/img/cat-' || category_id || '.svg', '/img/gemach-label.svg'];

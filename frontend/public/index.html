@@ -54,11 +54,18 @@
           </div>
           <label>נקודת מסירה<select name="point_id" required><option value="">בחרו נקודה</option></select></label>
           <label>תיאור ומצב הפריט<textarea name="description" maxlength="500"></textarea></label>
+          <label>תמונה של הפריט (חובה)<input name="photo_file" type="file" accept="image/*" capture="environment" required /></label>
           <button type="submit">שליחת הצעת תרומה</button>
           <p id="donate-msg" role="status" aria-live="polite"></p>
         </form>
         <h3 class="muted">הצעות אחרונות</h3>
         <ul class="recent" id="donate-recent"></ul>
+        <h3>מעקב אחרי התרומות שלי</h3>
+        <form class="inline-form" id="mine-form">
+          <input name="phone" inputmode="tel" placeholder="050-1234567" aria-label="מספר הטלפון שלי" required />
+          <button type="submit" class="secondary">הצגת התרומות שלי</button>
+        </form>
+        <ul class="recent" id="mine-list" aria-live="polite"></ul>
         <script type="module" src="/js/donate.js"></script>
       </section>
     </main>

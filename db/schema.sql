@@ -66,3 +66,20 @@ alter table points add column if not exists lat        double precision;
 alter table points add column if not exists lng        double precision;
 alter table points add column if not exists open_time  time not null default '17:00';
 alter table points add column if not exists close_time time not null default '20:00';
+
+-- כרטיס פריט (AB#103): גלריית תמונות לכל פריט
+alter table items add column if not exists images text[] not null default '{}';
+
+-- טופס תרומה (AB#258): תמונה של הפריט (חובה)
+alter table donations add column if not exists photo text;
+
+-- הודעות למשתמשים (AB#273): כל הודעה שהמערכת שולחת נרשמת כאן
+create table if not exists notifications (
+    id          serial primary key,
+    phone       text not null,
+    channel     text not null default 'whatsapp',
+    message     text not null,
+    created_at  timestamptz not null default now()
+);
+create index if not exists idx_notifications_phone on notifications(phone);
+alter table notifications enable row level security;
