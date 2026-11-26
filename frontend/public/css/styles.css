@@ -175,3 +175,7 @@ input, select, textarea { max-width: 100%; }
 .form { grid-template-columns: minmax(0, 1fr); }
 .donation { grid-template-columns: 96px minmax(0, 1fr); }
 .donation .actions input { min-width: 0; }
+
+/* קוד QR של ההזמנה (באג #441) */
+.qr { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.qr svg { width: 120px; height: 120px; background: white; border: 1px solid var(--line); border-radius: 8px; flex: none; }

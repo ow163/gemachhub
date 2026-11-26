@@ -138,7 +138,7 @@ def test_tc07_cart_limits_quantity_and_availability_by_dates(page):
 
 
 def test_tc08_order_rules_and_my_loans(page):
-    """TC-08 (AB#114, AB#151): איסוף בשבת נחסם; הזמנה תקינה מקבלת קוד ומופיעה בהשאלות שלי עם פרטי הנקודה."""
+    """TC-08 (AB#114, AB#151): איסוף בשבת נחסם; הזמנה תקינה מקבלת קוד ו-QR, ומופיעה בהשאלות שלי עם פרטי הנקודה."""
     phone = unique_phone()
     page.goto("/cart.html")
     page.fill("#login-form [name=phone]", phone)
@@ -164,11 +164,13 @@ def test_tc08_order_rules_and_my_loans(page):
     expect(page.locator("#order-confirm")).to_be_visible()
     code = page.locator("#order-confirm .code").inner_text()
     assert code.startswith("GH-")
+    expect(page.locator("#order-confirm .qr svg")).to_be_visible()  # קוד QR לסריקה בנקודה (#178)
 
     page.goto("/loans.html")
     loan = page.locator(f".loan[data-code='{code}']")
     expect(loan).to_contain_text("שוריינה")
     expect(loan).to_contain_text('גמ"ח קריית יובל')
+    expect(loan.locator(".qr svg")).to_be_visible()
 
 
 def test_tc09_volunteer_pickup_handover_damage_and_return(page, api):

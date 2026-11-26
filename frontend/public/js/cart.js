@@ -1,6 +1,7 @@
 // העגלה שלי (AB#109) ויצירת הזמנה עם נקודה, תאריכים ושעת איסוף (AB#114)
 import { request, escapeHtml } from "./api.js";
 import { getPhone, setPhone } from "./session.js";
+import { qrSvg } from "./qr.js";
 
 const loginForm = document.getElementById("login-form");
 const loginState = document.getElementById("login-state");
@@ -105,6 +106,7 @@ orderForm.addEventListener("submit", async (e) => {
     // אישור ההזמנה מוצג מחוץ לכרטיס ההזמנה, כי הכרטיס מוסתר כשהעגלה מתרוקנת אחרי ההזמנה (באג #436 שנמצא בבדיקת המערכת TC-08)
     orderResult.innerHTML = `<div class="confirm" id="order-confirm">ההזמנה התקבלה! מספר ההזמנה:
       <div class="code">${escapeHtml(res.code)}</div>
+      <div class="qr">${qrSvg(res.code)}<span class="muted">מציגים את הקוד הזה למתנדב באיסוף</span></div>
       פיקדון לתשלום באיסוף: ₪${res.deposit_total}. אפשר לראות אותה ב<a href="/loans.html">ההשאלות שלי</a>.</div>`;
     orderForm.reset();
     fillHours();
