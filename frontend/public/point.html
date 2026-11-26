@@ -34,9 +34,32 @@
         <video id="ho-video" class="scanner" hidden playsinline muted></video>
         <div id="ho-result" aria-live="polite"></div>
       </section>
+
+      <section class="card" id="returns" aria-labelledby="rt-title">
+        <h2 id="rt-title">קליטת החזרה</h2>
+        <form class="inline-form" id="rt-form">
+          <label class="grow">קוד הזמנה<input name="code" placeholder="GH-1001" required /></label>
+          <button type="submit">טעינת ההזמנה</button>
+        </form>
+        <div id="rt-order" aria-live="polite"></div>
+      </section>
+
+      <dialog id="damage-dialog" aria-labelledby="dm-title">
+        <form method="dialog" class="form" id="damage-form">
+          <h2 id="dm-title">תיעוד נזק ביחידה <span id="dm-code"></span></h2>
+          <label>דרגת חומרה<select name="severity" required>
+            <option value="">בחרו דרגה</option><option value="light">קל</option><option value="medium">בינוני</option><option value="severe">חמור</option>
+          </select></label>
+          <label>תיאור הנזק<textarea name="description" required maxlength="500"></textarea></label>
+          <label>תמונה של הנזק (חובה)<input name="photo_file" type="file" accept="image/*" capture="environment" required /></label>
+          <p id="dm-msg" role="status" aria-live="polite"></p>
+          <div class="actions-row"><button type="submit" value="save">שמירת הנזק</button><button type="button" class="secondary" id="dm-cancel">ביטול</button></div>
+        </form>
+      </dialog>
     </main>
     <footer class="footer">GemachHub · פרויקט בהנדסת תוכנה · אורי וינוגרד ורפאל זרוק</footer>
     <script type="module" src="/js/nav.js"></script>
     <script type="module" src="/js/point.js"></script>
+    <script type="module" src="/js/returns.js"></script>
   </body>
 </html>
